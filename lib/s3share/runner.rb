@@ -10,18 +10,18 @@ module S3Share
         exit(-1)
       end
 
-      @path = get_full_path
+      @path = get_directory
       @filename = clean_filename
 
-      # Upload the file, save the URL and return it to
-      # `#set_clipboard_url` so we can save it in the user's
-      # clipboard before exiting.
+      # Upload the file and save the URL in the clipboard
       exit_code = set_clipboard_url(upload_file)
       exit(exit_code)
     end
 
-    # Returns the full path for @filename.
-    def get_full_path
+    # The user can specify absolute paths, relative paths and individual
+    # filenames so we need to make sure we return the proper path to the
+    # directory.
+    def get_directory
       if !@filename.include?("/") # single file name
         "#{Dir.pwd}"
       elsif @filename[0,1] == "/" # absolute path
@@ -31,9 +31,9 @@ module S3Share
       end
     end
 
-    # returns the filename (without the path).
+    # Returns only the filename, discarding any directory info.
     def clean_filename
-      @filename = @filename.split("/").last
+      @filename.split("/").last
     end
 
 
@@ -65,9 +65,12 @@ module S3Share
 
       url = "http://s3.amazonaws.com/#{bucket_name}/#{@filename}"
       puts "\n #{@filename} uploaded to: #{url}\n\n"
+      url
     end
 
-    # Saves `url` in the clipboard for easy access.
+    # Saves `url` in the clipboard for easy access. `#clipboard_cmd`
+    # should be extended for other platforms (right now only OS X is
+    # supported).
     def set_clipboard_url(url)
       system "echo #{url} | #{clipboard_cmd}"
     end
@@ -79,7 +82,7 @@ module S3Share
       "pbcopy"
     end
 
-    # Finds an error by name and prints it (without exiting).
+    # Finds an error by name and prints the associated error string.
     def print_error(err)
       errors = {
         :no_default_bucket =>
