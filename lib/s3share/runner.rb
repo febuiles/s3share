@@ -3,8 +3,10 @@ module S3Share
     def initialize(*args)
       @args = Args.new(args)
       @filename = args.first
+    end
 
-      # Print usage instructions if the filename is empty.
+    # Starts the execution.
+    def run
       if @filename.nil?
         puts "usage: s3.rb [filename]"
         exit(-1)
