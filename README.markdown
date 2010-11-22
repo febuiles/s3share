@@ -1,7 +1,7 @@
 S3Share
 =======
 
-S3Share is a simple script to upload your files to S3 and share them with your friends.
+S3Share is a simple script to upload your files to S3 and share them with your friends and enemies.
 
 Requirements
 ------------
