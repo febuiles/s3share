@@ -57,12 +57,18 @@ describe S3Share::Runner do
     end
     
     it "calls AWS::S3::Bucket.create if the bucket doesn't exist" do
-      AWS::S3::Base.establish_connection!(:access_key_id => ENV["AMAZON_ACCESS_KEY_ID"], :secret_access_key => ENV["AMAZON_SECRET_ACCESS_KEY"])
       AWS::S3::Bucket.should_receive(:create).with("an_imaginary_bucket_that_surely_does_not_exist").and_return(nil)
       silence_stream(STDOUT) do
+        establish_s3_connection!        
         existing_file.send :create_bucket_if_it_does_not_exist, "an_imaginary_bucket_that_surely_does_not_exist"
       end
     end
+  end
+  
+  private
+  
+  def establish_s3_connection!
+      AWS::S3::Base.establish_connection!(:access_key_id => ENV["AMAZON_ACCESS_KEY_ID"], :secret_access_key => ENV["AMAZON_SECRET_ACCESS_KEY"])
   end
 end
 
