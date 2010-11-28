@@ -29,7 +29,7 @@ You'll need to set the three following ENV variables:
 * `AMAZON_SECRET_ACCESS_KEY`: AWS secret access key.
 * `AMAZON_S3_DEFAULT_BUCKET`: Name of the bucket where the uploads will be held.
 
-The last variable is visible in the URL returned to the user: `http://s3.amazonaws.com/{AMAZON_S3_DEFAULT_BUCKET}/some_photo.png`, so make sure you choose something pretty. This value is global for all the S3 namespace, meaning you need to find something unique between all the S3 users ("some-user-name_uploads" should do the trick).
+The last variable is visible in the URL returned to the user: `http://s3.amazonaws.com/{AMAZON_S3_DEFAULT_BUCKET}/some_photo.png`, so make sure you choose something pretty. This value is global for all the S3 namespace, meaning you need to find something unique between all the S3 users ("some-user-name_uploads" should do the trick). If the specified bucket doesn't exist, it will be automatically created.
 
 You can set these variables in a `~/.amazon_keys` file:
 
