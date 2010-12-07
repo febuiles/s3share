@@ -60,7 +60,7 @@ module S3Share
         :access_key_id     => access_key,
         :secret_access_key => secret_key
       )
-      
+
       create_bucket_if_it_does_not_exist(bucket_name)
 
       AWS::S3::S3Object.store(@filename, open("#{@path}/#{@filename}"),
@@ -102,7 +102,7 @@ module S3Share
       }
       errors[err].each { |msg| puts msg }
     end
-    
+
     private
     # Check if the bucket exists and create it if it doesn't.
     def create_bucket_if_it_does_not_exist(bucket_name)

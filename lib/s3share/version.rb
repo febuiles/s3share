@@ -1,3 +1,3 @@
 module S3Share
-  Version = VERSION = '0.2'
+  Version = VERSION = '0.3'
 end
