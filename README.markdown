@@ -18,7 +18,9 @@ You can install from Rubygems
 Or you can download the source and build it manually:
 
     $ git clone https://febuiles@github.com/febuiles/s3share.git
-    $ rake install
+    $ cd s3share
+    $ gem build
+    $ gem install s3share --local
 
 
 Setting ENV variables
