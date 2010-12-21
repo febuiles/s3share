@@ -1,3 +1,5 @@
+require 'uri'
+
 module S3Share
   class Runner
     def initialize(*args)
@@ -71,7 +73,7 @@ module S3Share
                               :access => :public_read)
       t.kill
 
-      url = "http://s3.amazonaws.com/#{bucket_name}/#{@filename}"
+      url = "http://s3.amazonaws.com/#{bucket_name}/#{URI::escape(@filename)}"
       puts "\n #{@filename} uploaded to: #{url}\n\n"
       url
     end
