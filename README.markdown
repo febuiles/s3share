@@ -19,7 +19,7 @@ Or you can download the source and build it manually:
 
     $ git clone https://febuiles@github.com/febuiles/s3share.git
     $ cd s3share
-    $ gem build
+    $ gem build s3share.gemspec
     $ gem install s3share --local
 
 
