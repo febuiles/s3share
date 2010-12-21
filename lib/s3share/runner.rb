@@ -63,9 +63,13 @@ module S3Share
 
       create_bucket_if_it_does_not_exist(bucket_name)
 
+      # TODO: Find a way to make this faster in the future
+      t = Thread.new { start_progress_counter }
+
       AWS::S3::S3Object.store(@filename, open("#{@path}/#{@filename}"),
                               bucket_name,
                               :access => :public_read)
+      t.kill
 
       url = "http://s3.amazonaws.com/#{bucket_name}/#{@filename}"
       puts "\n #{@filename} uploaded to: #{url}\n\n"
@@ -110,6 +114,31 @@ module S3Share
     rescue AWS::S3::NoSuchBucket => e
       puts "Bucket '#{bucket_name}' does not exist. Creating it..."
       AWS::S3::Bucket.create(bucket_name)
+    end
+
+    # TODO: Cleanup.
+    def start_progress_counter
+      reset = "\r\e[0K"
+      str = "#{reset}Uploading"
+
+      while(true) do
+        print "#{str}"
+        sleep(0.1)
+        $stdout.flush
+        Thread.pass
+        print "#{str}."
+        sleep(0.1)
+        $stdout.flush
+        Thread.pass
+        print "#{str}.."
+        sleep(0.1)
+        $stdout.flush
+        Thread.pass
+        print "#{str}..."
+        sleep(0.1)
+        $stdout.flush
+        Thread.pass
+      end
     end
   end
 end
