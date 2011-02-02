@@ -1,12 +1,6 @@
-# Empty Rakefile...
-require 'rspec/core/rake_task'
+require 'pamela'
 
-file_list = FileList['spec/*_spec.rb']
-
-RSpec::Core::RakeTask.new('spec') do |t|
-  t.pattern = file_list
-  t.rspec_opts = ["--colour", "--format progress"]
-end
+Pamela.load :spec, :console
 
 desc 'Default: run specs.'
 task :default => 'spec'

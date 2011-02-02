@@ -14,10 +14,8 @@ Gem::Specification.new do |s|
   s.files             = %w( README.markdown Rakefile LICENSE )
   s.files            += Dir.glob("lib/**/*")
   s.files            += Dir.glob("bin/**/*")
-#  s.files            += Dir.glob("man/**/*")
-#  s.files            += Dir.glob("spec/**/*")
 
-  s.add_development_dependency "rspec"
+  s.add_development_dependency "rspec", "pamela"
   s.add_dependency "aws-s3"
 
   s.executables       = %w( s3.rb )
